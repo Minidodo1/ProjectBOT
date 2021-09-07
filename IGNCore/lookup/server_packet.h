@@ -6,11 +6,11 @@
 #define PACKETLINK_SERVER_PACKET_H
 
 #include "../packet.h"
-#include "aochat.h"
+#include <aochat.h>
 template<class T> class Pointer{
     T* m_ptr;
 public:
-    Pointer(T* ptr= nullptr): m_ptr(ptr){}
+    explicit Pointer(T* ptr= nullptr): m_ptr(ptr){}
     ~Pointer(){ delete m_ptr;}
     T& operator*() const{return *m_ptr;}
     T* operator->() const{return m_ptr;}

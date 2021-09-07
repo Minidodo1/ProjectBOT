@@ -6,7 +6,7 @@
 #define AOBOT_SLAVE_H
 #include <sys/types.h>
 #include <cstdint>
-#include "aochat.h"
+#include <aochat.h>
 #include "lookup/server_packet.h"
 #include "plugin.h"
 
@@ -20,7 +20,7 @@ class Slave{
     bool running = true;
 public:
     void sendPacket(packet* packet);
-    int connect(log_info* logInfo, Registry* r, aocNameList *nameList);
+    int connect(log_info *logInfo, Registry *r);
     void setRunning(bool status);
     bool getRunning() const;
     void sendPrivateMessage(int char_id, std::string *msg, bool add_color=true);

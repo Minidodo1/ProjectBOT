@@ -1,11 +1,7 @@
 #include <iostream>
 #include "Slave.h"
-#include <aochat.h>
 #include <thread>
-#include <dlfcn.h>
-#include "buddylist.h"
 
-aocNameList *namelist;
 BuddyListService* bsl = nullptr;
 bool running = true;
 Registry* r;
@@ -16,19 +12,10 @@ struct bot {
 };
 std::vector<bot *> threads;
 int run_slave(Slave *s, log_info* logInfo) {
-    return s->connect(logInfo, r, namelist);
+    return s->connect(logInfo, r);
 }
 
 /* Wrapper for aocNameListLookupByUID() */
-char *GetCharName(uint32_t uid) {
-    char *char_name;
-
-    char_name = aocNameListLookupByUID(namelist, uid, nullptr);
-    if (char_name == nullptr)
-        return (char *) "unknown";
-
-    return char_name;
-}
 
 int main() {
     r = new Registry;
@@ -38,13 +25,9 @@ int main() {
     /* On windows we need to initialize WinSock */
     WSAStartup(0x0101, &wd);
 #endif
-    std::vector<log_info *> accounts{new log_info{"Account", "password", "char_name1"},
-                                     new log_info{"Account", "password", "char_name2"},
-                                     new log_info{"Account", "password", "char_name3"},
-                                     new log_info{"Account", "password", "char_name4"},};
+    std::vector<log_info *> accounts{new log_info{"Account", "Password", "Character"}};
 
     // Technically no longer needed, but I've been too lazy to remove it.
-    namelist = aocNameListNew(1 * 8);
 
     r->setEventService(new EventService);
     r->setLookupService(new LookupService);

@@ -34,9 +34,7 @@ int LookupService::getCharID(const char *char_name) {
 std::string LookupService::getName(int char_id) {
 
     auto user = id2name.find(char_id);
-    std::cout << "> " << user->first << std::endl;
-
-    if(user->first){
+    if(user != nullptr){
         return user->second;
     }
     return "";

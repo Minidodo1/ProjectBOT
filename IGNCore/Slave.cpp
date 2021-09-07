@@ -4,16 +4,14 @@
 
 #include <iostream>
 #include "Slave.h"
-#include "buddylist.h"
 
 
 void Slave::sendPacket(packet *packet) {}
-int Slave::connect(log_info* logInfo, Registry* r, aocNameList *nameList) {
-    this->addr = aocMakeAddr(AOC_SERVER_RK5, 7105);
+int Slave::connect(log_info *logInfo, Registry *r) {
+    this->addr = aocMakeAddr("chat.d1.funcom.com", 7105);
     int user_id;
     this->aoc = aocInit(nullptr);
     this->aoc = aocInit(this->aoc);
-    aocMsgQueueSetNameList(aoc, nameList);
     if (!aocConnect(this->aoc, this->addr)) {
         std::cout << "Fatal socket error for slave " << logInfo->character << std::endl;
         return 2;
